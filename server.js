@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const PORT = 2121;
@@ -14,7 +15,9 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
         console.log(`Connected to ${dbName} Database`);
         db = client.db(dbName);
     });
-    
+
+
+app.use(cors());
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
