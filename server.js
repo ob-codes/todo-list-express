@@ -16,12 +16,20 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
         db = client.db(dbName);
     });
 
+// views are the files you render
+app.set('views', __dirname + '/views');
+//Using EJS for views
+app.set('view engine', 'ejs');
+
 app.use(cors());
 
-app.set('view engine', 'ejs');
+app.set('public', __dirname + '/public');
+//Static Folder
 app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
+
+//Body Parsing
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/',(request, response)=>{
     //const todoItems = await db.collection('todos').find().toArray();
